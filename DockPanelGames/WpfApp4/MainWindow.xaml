@@ -1,0 +1,146 @@
+﻿<Window x:Class="WpfApp4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp4"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+
+        <StackPanel Orientation="Vertical" Width="525">
+            <DockPanel Margin="8">
+            <Border 
+                    DockPanel.Dock="Left"
+                    CornerRadius="6"
+                    BorderThickness="1"
+                    BorderBrush="Green"
+                    Background="Yellow"
+                    Padding="8"
+                    Margin="0 0 0 8">
+                <TextBlock FontSize="14">
+                        1
+                </TextBlock>
+            </Border>
+
+            <Border 
+                DockPanel.Dock="Right"
+                CornerRadius="6"
+                    BorderThickness="1"
+                    BorderBrush="Green"
+                    Background="Yellow"
+                    Padding="8"
+                    Margin="0 0 0 8">
+                <TextBlock FontSize="14">
+                        2
+                </TextBlock>
+            </Border>
+            <Border 
+                DockPanel.Dock="Right"
+                CornerRadius="6"
+                    BorderThickness="1"
+                    BorderBrush="Green"
+                    Background="Yellow"
+                    Padding="8"
+                    Margin="0 0 0 8">
+                <TextBlock FontSize="14">
+                        3
+                </TextBlock>
+            </Border>                
+
+        </DockPanel>
+        <TextBlock TextAlignment="Center">
+            Hello My name is danny
+        </TextBlock>
+        <DockPanel Margin="8">
+            <Border 
+                    DockPanel.Dock="Left"
+                    CornerRadius="6"
+                    BorderThickness="1"
+                    BorderBrush="Green"
+                    Background="Yellow"
+                    Padding="8"
+                    Margin="0 0 0 8">
+                <TextBlock FontSize="14">
+                        1
+                </TextBlock>
+            </Border>
+
+            <Border 
+                DockPanel.Dock="Right"
+                CornerRadius="6"
+                    BorderThickness="1"
+                    BorderBrush="Green"
+                    Background="Yellow"
+                    Padding="8"
+                    Margin="0 0 0 8">
+                <TextBlock FontSize="14">
+                        3
+                </TextBlock>
+            </Border>
+            <Border 
+                DockPanel.Dock="Top"
+                CornerRadius="6"
+                    BorderThickness="0"
+                    BorderBrush="Green"
+                    Background="White"
+                    Padding="8"
+                    Margin="0 0 0 8">
+
+            </Border>
+
+        </DockPanel>
+        <DockPanel Margin="8">
+            <Border 
+                    DockPanel.Dock="Left"
+                    CornerRadius="6"
+                    BorderThickness="1"
+                    BorderBrush="Green"
+                    Background="Yellow"
+                    Padding="8"
+                    Margin="0 0 0 8">
+                <TextBlock FontSize="14">
+                        2
+                </TextBlock>
+            </Border>
+
+            <Border 
+                DockPanel.Dock="Right"
+                CornerRadius="6"
+                    BorderThickness="1"
+                    BorderBrush="Green"
+                    Background="Yellow"
+                    Padding="8"
+                    Margin="0 0 0 8">
+                <TextBlock FontSize="14">
+                        4
+                </TextBlock>
+            </Border>
+            <Border 
+                DockPanel.Dock="Top"
+                CornerRadius="6"
+                    BorderThickness="0"
+                    BorderBrush="Green"
+                    Background="White"
+                    Padding="8"
+                    Margin="0 0 0 8">
+
+            </Border>
+
+        </DockPanel>
+        <Border 
+                DockPanel.Dock="Bottom"
+                CornerRadius="6"
+                    BorderThickness="1"
+                    BorderBrush="Green"
+                    Background="LightGreen"
+                    Padding="8"
+                    Margin="0 0 0 8">
+            <TextBlock FontSize="14">
+                        Green Lantern
+            </TextBlock>
+        </Border>            
+    </StackPanel>
+    
+
+
+</Window>
