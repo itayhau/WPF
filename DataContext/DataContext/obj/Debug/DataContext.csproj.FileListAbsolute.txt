@@ -1,0 +1,14 @@
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\bin\Debug\DataContext.exe.config
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\bin\Debug\DataContext.exe
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\bin\Debug\DataContext.pdb
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\obj\Debug\MainWindow.g.cs
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\obj\Debug\App.g.cs
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\obj\Debug\DataContext_MarkupCompile.cache
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\obj\Debug\DataContext_MarkupCompile.lref
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\obj\Debug\MainWindow.baml
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\obj\Debug\DataContext.g.resources
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\obj\Debug\DataContext.Properties.Resources.resources
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\obj\Debug\DataContext.csproj.GenerateResource.Cache
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\obj\Debug\DataContext.csproj.CoreCompileInputs.cache
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\obj\Debug\DataContext.exe
+D:\work\wpf\21.07.2019-master\DataContext\DataContext\obj\Debug\DataContext.pdb
