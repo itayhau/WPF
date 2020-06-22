@@ -1,0 +1,715 @@
+dock games:
+===========
+<Border 
+                DockPanel.Dock="Right"
+                CornerRadius="6"
+                    BorderThickness="1"
+                    BorderBrush="Green"
+                    Background="Yellow"
+                    Padding="8"
+                    Margin="0 0 0 8">
+                <TextBlock FontSize="14">
+                        4
+                </TextBlock>
+            </Border>
+Font app {x:Static Fonts.SystemFontFamilies}:
+==============================================
+(1)
+        <ListBox x:Name="FontList"
+            DockPanel.Dock="Left"
+            ItemsSource="{x:Static Fonts.SystemFontFamilies}"
+            Width="160" />
+(2)
+            <TextBlock Text="{Binding ElementName=SampleText, Path=Text}"
+                FontFamily="{Binding ElementName=FontList,Path=SelectedItem}"
+                FontSize="10"
+                TextWrapping="Wrap"
+                Margin="0 0 0 4" />
+				
+GridExample:
+============
+ <Grid.ColumnDefinitions>
+ <Grid.RowDefinitions>
+             <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/> <!-- rest of panel -->
+
+Scroller View:
+==============
+        <ScrollViewer
+            Grid.Row="1" Grid.Column="4"
+            Grid.RowSpan="6" Height="400">
+            <StackPanel >
+                <Image Source="Resources/pic.jpg" />
+                <Image Source="Resources/pic.jpg" />
+                <Image Source="Resources/pic.jpg" />
+                <Image Source="Resources/pic.jpg" />
+            </StackPanel>
+            
+        </ScrollViewer>
+
+Combo box (ItemTemplate, DataTemplate, ItemsSource) {Binding <property-name> i.e. FirstName}:
+=============================================================================================
+public List<Person> people = new List<Person>();
+        public MainWindow()
+        {
+            
+            InitializeComponent();
+
+            people.Add(new Person { FirstName = "Dana", LastName = "Koren" });
+            people.Add(new Person { FirstName = "Keren", LastName = "Koko" });
+            people.Add(new Person { FirstName = "Mor", LastName = "Mini" });
+
+            myComboBox.ItemsSource = people;
+            myComboBox.SelectedIndex = 0;
+        }
+<ComboBox x:Name="myComboBox" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Margin="10">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FirstName}"/>
+                        <TextBlock Text="{Binding LastName}" Margin="10 0 0 0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+
+        </ComboBox>		
+Media:
+======
+                  <!-- Adding RESOURCE IMAGE
+                            Create a folder in the solution explorer named Resource
+                            add files into it (Project > Add > Existing item)
+                            click the image + F4 > Build Action > Content
+                            Copy to output directory > Copy always
+                            <Image Source="/Resources/pic.jpg"  />
+                            -->
+
+
+                    <!-- Adding VIDEO IMAGE
+                            Create a folder in the solution named Resource
+                            add files into it (Project > Add)
+                            click the image + F4 > Build Action > Embedded Resource
+                            Copy to output directory > Copy always
+                            <MediaElement Source="Resources/funny.mp4" ></MediaElement>
+                            -->
+		<Image Source="Resources/pic.jpg" 
+               Grid.Column="1" Grid.Row="5"
+               />
+
+        <MediaElement Source="Resources/funny.mp4" 
+               Grid.Column="2" Grid.Row="5"
+                      Grid.ColumnSpan="3"
+               />
+Resource without style (setting a color explicit with key or on component):
+===========================================================================
+
+    <Window.Resources>
+        <SolidColorBrush Color="Yellow" x:Key="YellowBrush"/>
+    </Window.Resources>		
+        <Button Content="Yellow" Margin="95,32,261.667,217.667" 
+                Background="{StaticResource YellowBrush}" Click="Button_Click"/>
+
+	C# --> this.Resources["DynamicColorPink"] = new SolidColorBrush(Colors.LightPink);				
+	Background="{DynamicResource DynamicColorPink}"
+	
+Resource with style (setting a color explicit with key or on component):
+========================================================================
+----Style is like CSS
+- Could be set on component, like Button and will be applied on all buttons
+    <Window.Resources>
+        <Style TargetType="Button" >
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="FontWeight" Value="ExtraBold"/>
+        </Style>
+    </Window.Resources>
+	<Button/> will get the style
+	
+- Could be set with key, like css class
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="MyStyle">
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="FontWeight" Value="ExtraBold"/>
+        </Style>
+    </Window.Resources>
+    <Button Content="Button" Style="{StaticResource MyStyle}}	
+		
+- Could be set inside the component, like style="..." in html	
+        <Button Margin="154,61,182.667,216.667" Content="Button1">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="FontWeight" Value="ExtraBold"/>
+                </Style>
+            </Button.Style>
+        </Button>
+	
+- Could be inherited an overriden	
+        <Button Content="Button" >
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource MyStyle}">
+                    <Setter Property="Background" Value="Yellow"/>
+                </Style>
+            </Button.Style>
+        </Button>
+		
+- Could be defined in app.xaml
+    <Application.Resources>
+        <Style TargetType="Button" x:Key="MyAppStyle">
+            <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="FontWeight" Value="ExtraBold"/>
+
+        </Style>
+    </Application.Resources>
+	
+Trigger (changes style on event [like mouse event], or DataTrigger based on a specific value [+value Converter]):
+=================================================================================================================
+    Mouse event:
+		<Button Content="Button" >
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="FontWeight" Value="ExtraBold"/>
+                    <Setter Property="Background" Value="Yellow"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Blue"/>
+                            <Setter Property="Background" Value="LightGreen"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+		
+	Data value [+value Converter]:
+		<CheckBox Name="cbSample" Content="Hello, world?" />
+        <TextBlock HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="48">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="No" />
+                    <Setter Property="Foreground" Value="Red" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=cbSample, Path=IsChecked}" Value="True">
+                            <Setter Property="Text" Value="Yes!" />
+                            <Setter Property="Foreground" Value="Green" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>	
+
+Data Binding {Binding ElementName=sld, Path=Value, Mode=OneWay, TwoWay...} UpdateSourceTrigger:
+===============================================================================================
+https://www.c-sharpcorner.com/article/explain-binding-mode-in-wpf/
+
+        <Slider IsSnapToTickEnabled="True" HorizontalAlignment="Left" x:Name="slider1" Value="90"
+                Minimum="0" Maximum="100" VerticalAlignment="Top" Margin="30 30" Height="31" Width="500"/>
+        <!-- OneTime: will be 90, will not change. updated ony in creation -->
+        <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=OneTime}"/>
+
+        <!-- OneWay: will be updated every time we move the slider  -->
+        <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=OneWay}"/>
+
+        <!-- OneWayToSource: will NOT be updated when we move the slider  
+             after we modify the text (in the text box) - the slider will be updated!
+        -->
+        <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!-- TwoWay: every update in the slider will update the text box
+             every update in the text box will update the slider
+        -->
+        <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!-- Default: is two-ways  -->
+        <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=Default, UpdateSourceTrigger=PropertyChanged}"/>
+
+Data Context:
+=============
+		public Person MyPerson { get; set; }
+        public MainWindow()
+        {
+			InitializeComponent();
+
+            MyPerson = new Person { Name = "Very nice person!" };
+
+            //this.DataContext = MyPerson; { Binding Name }
+            //this.DataContext = this; // {Binding MyPerson.Name}
+            this.lbl1.DataContext = MyPerson; // you can choose item for the DataContext				 
+		}
+<Label Content="{Binding Name}" VerticalAlignment="Top"
+               x:Name="lbl1"
+               />
+			   
+More ways:
+----------
+(1)
+App.xaml:
+<Application
+    x:Class="BuildAssistantUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:BuildAssistantUI.ViewModels"
+    StartupUri="MainWindow.xaml"
+    >
+    <Application.Resources>
+        <local:MainViewModel x:Key="MainViewModel" />
+    </Application.Resources>
+</Application>
+
+MainWindow.xaml:
+<Window x:Class="BuildAssistantUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    DataContext="{StaticResource MainViewModel}"
+    />			   
+	
+(2)
+<Window x:Class="BuildAssistantUI.BuildAssistantWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:VM="clr-namespace:BuildAssistantUI.ViewModels">
+    <Window.DataContext>
+        <VM:MainViewModel />
+    </Window.DataContext>
+</Window>	
+ 
+			   
+Event Trigger for animation
+===========================
+                        <EventTrigger RoutedEvent="MouseDown">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="28" />
+                                        <DoubleAnimation Duration="0:0:0.800" Storyboard.TargetProperty="FontSize" To="18" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>			   
+
+INotifyPropertyChange:
+======================
+     public partial class MainWindow : Window
+    {
+        private MainWIndowViewModel viewModel = new MainWIndowViewModel();
+        public MainWindow()
+        {
+            InitializeComponent();
+            this.DataContext = viewModel;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.MyPerson1.Name="Yakov";
+        }
+    }
+		
+	public class MainWIndowViewModel
+    {
+
+        public Person MyPerson1 { get; set; }
+
+        public MainWIndowViewModel()
+        {
+            MyPerson1 = new Person() { Name = "Yakov Israel" };
+            
+        }
+    }		
+	public class Person : INotifyPropertyChanged
+    {
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                this.name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public override string ToString()
+        {
+            return $"Person name {Name}";
+        }
+
+        private void OnPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+            }
+        }
+    }
+	
+Dispatcher Safe Invoke:
+=======================
+		private void SafeInvoke(Action work)
+        {
+            if (Dispatcher.CheckAccess()) // CheckAccess returns true if you're on the dispatcher thread
+            {
+                work.Invoke();
+                return;
+            }
+            this.Dispatcher.BeginInvoke(work);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Task.Run(() =>
+            {
+                for (int i = 2; i < 100; i++)
+                {
+                    Action uiwork = () => { countLbl.Content = i; };
+                    //this.Dispatcher.Invoke(uiwork); // countLbl.BeginInvoke(uiwork);
+                    SafeInvoke(uiwork);
+                    Thread.Sleep(20);
+                }
+            });
+        }	
+
+Routed Events:
+===============
+e.Handled = true;
+
+ICommand: Prism:
+===============
+Download nugget -- Prism.WPF
+
+        public ICommand MyCommand { get; set;  }
+
+        public ICommand MyRelayCommand { get; set; }
+
+        public ICommand MyActionCommand { get; set; }
+
+        public DelegateCommand  MyDelegate { get; set; } // Prism
+		
+		MyDelegate.RaiseCanExecuteChanged ...
+		
+		<Window.Resources>
+			<local:MainWindowViewModel x:Key="vm"/> ---- dont forget clr-namespace
+		</Window.Resources>
+	
+		<Button Content="Button" 
+                Command="{Binding MyCommand, Source={StaticResource vm}}"/>
+        <Button Content="Relay" 
+                Command="{Binding MyRelayCommand, Source={StaticResource vm}}"/>
+        <Button Content="ActionCommand" 
+                  Command="{Binding MyActionCommand, Source={StaticResource vm}}"/>
+        <Button Content="Delegate" 
+                Command="{Binding MyDelegate, Source={StaticResource vm}}"/>
+Materials:
+==========
+http://materialdesigninxaml.net/
+
+Observable Collection:
+======================
+ObservableCollection<Person> persons = new ObservableCollection<Person>();
+        public MainWindow()
+        {
+            persons.Add(new Person() { Name = "a" });
+            persons.Add(new Person() { Name = "b" });
+            persons.Add(new Person() { Name = "c" });
+            InitializeComponent();
+
+            this.DataContext = persons;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            persons[0].Name = "????"; // will not be updated!
+
+            persons.Add(new Person() { Name = "d" });
+        }
+		
+		<ListBox Height="200" Width="300" ItemsSource="{Binding}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Label Content="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+		
+ContentPresenter DataTemplate (see also above):
+===============================================
+
+ public Person obj { get; set; }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            obj = new Person() { Name = "hi im person" };
+            this.DataContext = this;
+        }
+		
+ <Window.Resources>
+        <DataTemplate x:Key="MyTemplate">
+            <TextBlock Text="{Binding Name}"  HorizontalAlignment="Left" Margin="106,102,0,0" VerticalAlignment="Top"/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <!-- 1 -->
+        <Label Content="{Binding obj.Name}" HorizontalAlignment="Left" Margin="96,66,0,0" 
+                VerticalAlignment="Top"/>
+
+        <!-- 2 -->
+        <ContentPresenter Content="{Binding obj}" >
+            <ContentPresenter.ContentTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Name}"  HorizontalAlignment="Left" Margin="106,102,0,0" VerticalAlignment="Top"/>
+                </DataTemplate>
+            </ContentPresenter.ContentTemplate>
+        </ContentPresenter>
+
+        <!-- 3 best way -->
+        <ContentPresenter Content="{Binding obj}" ContentTemplate="{StaticResource MyTemplate}">
+
+        </ContentPresenter>
+
+    </Grid>
+
+ValueConverter:
+===============
+IValueConverter, Convert, ConvertBack
+		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value.ToString().ToUpper() == "MARRIED")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            bool married = System.Convert.ToBoolean(value);
+            if (married == true)
+                return "Married";
+            else
+                return "Unmarried";
+        }
+		
+	<Window.Resources>
+        <local:CheckBoxCheckConverter x:Key="checkBoxCheckConverter"></local:CheckBoxCheckConverter>
+    </Window.Resources>
+    <Grid>
+        <TextBox Name="txtFirstName" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="255" Margin="136,38,0,0" ></TextBox>
+        <CheckBox Content="Married" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="307,108,0,0" IsChecked="{Binding Path=Text, ElementName=txtFirstName,Converter={StaticResource checkBoxCheckConverter}}"></CheckBox>
+    </Grid>
+
+DataGrid:
+=========
+AutoGenerateColumns
+
+CustomeDependency property:
+===========================
+        public MainWindow()
+        {
+            InitializeComponent();
+            EventHandler ev = (o, e) => {
+                SetValue(CounterProperty, Counter + 1);
+            };
+
+            DispatcherTimer timer = new DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.Normal,
+                ev, Dispatcher);
+
+            // you don't need it !!!
+            // this.DataContext = this;
+        }
+
+        public int Counter
+        {
+            get { return (int)GetValue(CounterProperty); }
+            set { SetValue(CounterProperty, value); }
+        }
+
+        public static readonly DependencyProperty CounterProperty =
+            DependencyProperty.Register("Counter", typeof(int), typeof(MainWindow), new PropertyMetadata(3));
+			
+<Window.Style>
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="Yellow"/>
+            <Style.Triggers>
+                <Trigger Property="local:MainWindow.Counter" Value="7">
+                    <Setter Property="Background" Value="LightGreen"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="{Binding ElementName=myWindow, Path=Counter}" FontSize="48" 
+                   HorizontalAlignment="Center" Foreground="Black"/>
+
+        <TextBlock HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="48">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="Wait for lucky 7..." />
+                    <Setter Property="Foreground" Value="Green" />
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=myWindow, Path=Counter}" Value="7">
+                            <Setter Property="Text" Value="7 Boom!" />
+                            <Setter Property="Foreground" Value="Red" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </StackPanel>
+	
+IDataErrorInfo:
+===============
+
+public class PersonVM : IDataErrorInfo
+    {
+        private string mobileNumber;
+        public string MobileNumber
+        {
+            get { return mobileNumber; }
+            set
+            {
+                mobileNumber = value;
+
+            }
+        }
+
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+
+            }
+        }
+
+        public string Error
+        {
+            get
+            {
+                return string.Empty;
+            }
+        }
+
+        public string this[string propertyName]
+        {
+            get
+            {
+                return GetErrorForProperty(propertyName);
+            }
+        }
+
+        private string GetErrorForProperty(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "Name":
+                    if (Name == null || Name.ToUpper() != "ITAY")
+                        return "not itay";
+                    else
+                        return string.Empty;
+                case "MobileNumber":
+                    Regex regex = new Regex(@"^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$");
+                    if (MobileNumber == null || regex.Match(MobileNumber) == Match.Empty)
+                        return "Invalid Phone Format";
+                    else return string.Empty;
+                default:
+                    return string.Empty;
+            }
+        }
+
+    }
+<Window.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Name  " Height="30" Grid.Column="0" Grid.Row="0"></TextBlock>
+        <TextBox Text="{Binding Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Height="30" Width="100"></TextBox>
+
+        <TextBlock Text="Mobile Number  " Height="30" Grid.Column="0" Grid.Row="1"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="1" Height="30" Width="100" Text="{Binding MobileNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}">
+        </TextBox>
+    </Grid>
+	
+User control:
+=============
+public partial class LimitedInputUserControl : UserControl
+    {
+        public LimitedInputUserControl()
+        {
+            InitializeComponent();
+            this.DataContext = this;
+        }
+
+        public string Title { get; set; }
+
+        public int MaxLength { get; set; }
+    }
+	
+	<UserControl x:Class="_0708_1.LimitedInputUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:_0708_1"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Label Content="{Binding Title}" />
+        <Label Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding ElementName=txtLimitedInput, Path=Text.Length}" />
+                <TextBlock Text="/" />
+                <TextBlock Text="{Binding MaxLength}" />
+            </StackPanel>
+        </Label>
+        <TextBox MaxLength="{Binding MaxLength}" Grid.Row="1" Grid.ColumnSpan="2" Name="txtLimitedInput" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" />
+    </Grid>
+</UserControl>
+
+MainWindow.xaml
+ <local:LimitedInputUserControl Title="Enter title:"
+                                       x:Name="c1"
+                                       MaxLength="30" Height="50" 
+                                 Grid.Row="0"   Visibility="Hidden"   />
+        <local:LimitedInputUserControl Title="Enter description:" MaxLength="140" 
+                          Grid.Row="0"
+                          Height="100"     
+                                       x:Name="c2"/>
+			   
+Data Template -- for ListViewItem			   
+				 
